@@ -9,6 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/node": "^20.14.12",
+    "naive-ui": "^2.39.0",
+    "pinia": "^2.2.0",
     "vue": "^3.4.31"
   },
   "devDependencies": {
