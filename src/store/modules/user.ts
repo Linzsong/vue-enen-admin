@@ -1,72 +1,106 @@
 import { defineStore } from 'pinia';
-import { RouteLocationNormalized } from 'vue-router';
+import { pinia } from '@/store';
+import { ACCESS_TOKEN, CURRENT_USER, IS_SCREENLOCKED } from '@/store/mutation-types';
+import { ResultEnum } from '@/enums/httpEnum';
 
-// 不需要出现在标签页中的路由
-const whiteList = ['Redirect', 'login'];
+import { getUserInfo as getUserInfoApi, login } from '@/api/system/user';
+import { storage } from '@/utils/Storage';
 
-export type RouteItem = Partial<RouteLocationNormalized> & {
-  fullPath: string;
-  path: string;
-  name: string;
-  hash: string;
-  meta: object;
-  params: object;
-  query: object;
+export type UserInfoType = {
+  // TODO: add your own data
+  username: string;
+  email: string;
 };
 
-export type ITabsViewState = {
-  tabsList: RouteItem[]; // 标签页
-};
-
-//保留固定路由
-function retainAffixRoute(list: any[]) {
-  return list.filter((item) => item?.meta?.affix ?? false);
+export interface IUserState {
+  token: string;
+  username: string;
+  welcome: string;
+  avatar: string;
+  permissions: any[];
+  info: UserInfoType;
 }
 
-export const useTabsViewStore = defineStore({
-  id: 'app-tabs-view',
-  state: (): ITabsViewState => ({
-    tabsList: [],
+export const useUserStore = defineStore({
+  id: 'app-user',
+  state: (): IUserState => ({
+    token: storage.get(ACCESS_TOKEN, ''),
+    username: '',
+    welcome: '',
+    avatar: '',
+    permissions: [],
+    info: storage.get(CURRENT_USER, {}),
   }),
-  getters: {},
+  getters: {
+    getToken(): string {
+      return this.token;
+    },
+    getAvatar(): string {
+      return this.avatar;
+    },
+    getNickname(): string {
+      return this.username;
+    },
+    getPermissions(): [any][] {
+      return this.permissions;
+    },
+    getUserInfo(): UserInfoType {
+      return this.info;
+    },
+  },
   actions: {
-    initTabs(routes: RouteItem[]) {
-      // 初始化标签页
-      this.tabsList = routes;
+    setToken(token: string) {
+      this.token = token;
     },
-    addTab(route: RouteItem): boolean {
-      // 添加标签页
-      if (whiteList.includes(route.name)) return false;
-      const isExists = this.tabsList.some((item) => item.fullPath == route.fullPath);
-      if (!isExists) {
-        this.tabsList.push(route);
+    setAvatar(avatar: string) {
+      this.avatar = avatar;
+    },
+    setPermissions(permissions: any[]) {
+      this.permissions = permissions;
+    },
+    setUserInfo(info: UserInfoType) {
+      this.info = info;
+    },
+    // 登录
+    async login(params: any) {
+      const response = await login(params);
+      const { result, code } = response;
+      if (code === ResultEnum.SUCCESS) {
+        const ex = 7 * 24 * 60 * 60;
+        storage.set(ACCESS_TOKEN, result.token, ex);
+        storage.set(CURRENT_USER, result, ex);
+        storage.set(IS_SCREENLOCKED, false);
+        this.setToken(result.token);
+        this.setUserInfo(result);
       }
-      return true;
+      return response;
     },
-    closeLeftTabs(route: RouteItem) {
-      // 关闭左侧
-      const index = this.tabsList.findIndex((item) => item.fullPath == route.fullPath);
-      this.tabsList = this.tabsList.filter((item, i) => i >= index || (item?.meta?.affix ?? false));
+
+    // 获取用户信息
+    async getInfo() {
+      const result = await getUserInfoApi();
+      if (result.permissions && result.permissions.length) {
+        const permissionsList = result.permissions;
+        this.setPermissions(permissionsList);
+        this.setUserInfo(result);
+      } else {
+        throw new Error('getInfo: permissionsList must be a non-null array !');
+      }
+      this.setAvatar(result.avatar);
+      return result;
     },
-    closeRightTabs(route: RouteItem) {
-      // 关闭右侧
-      const index = this.tabsList.findIndex((item) => item.fullPath == route.fullPath);
-      this.tabsList = this.tabsList.filter((item, i) => i <= index || (item?.meta?.affix ?? false));
-    },
-    closeOtherTabs(route: RouteItem) {
-      // 关闭其他
-      this.tabsList = this.tabsList.filter(
-        (item) => item.fullPath == route.fullPath || (item?.meta?.affix ?? false)
-      );
-    },
-    closeCurrentTab(route: RouteItem) {
-      // 关闭当前页
-      const index = this.tabsList.findIndex((item) => item.fullPath == route.fullPath);
-      this.tabsList.splice(index, 1);
-    },
-    closeAllTabs() {
-      // 关闭全部
-      this.tabsList = retainAffixRoute(this.tabsList);
+
+    // 登出
+    async logout() {
+      this.setPermissions([]);
+      this.setUserInfo({ name: '', email: '' });
+      storage.remove(ACCESS_TOKEN);
+      storage.remove(CURRENT_USER);
     },
   },
 });
+
+// Need to be used outside the setup
+export function useUser() {
+  return useUserStore(pinia);
+}
