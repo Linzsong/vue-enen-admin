@@ -11,6 +11,8 @@ console.log(pinia);
 (async() => {
   const app = createApp(App)
 
+  setupNaive(app);
+
   app.use(pinia)
   app.use(router);
   

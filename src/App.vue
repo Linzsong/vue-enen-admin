@@ -1,5 +1,8 @@
 <template>
-  <RouterView />
+  <n-message-provider>
+
+    <RouterView />
+  </n-message-provider>
 
 </template>
 <script setup lang="ts">

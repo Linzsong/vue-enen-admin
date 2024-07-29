@@ -5,6 +5,9 @@ import path, { resolve } from 'path';
 // https://vitejs.dev/config/
 
 export default defineConfig({
+  server: {
+    port: 1688
+  },
   resolve: {
     alias: [
       {
