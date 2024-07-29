@@ -100,7 +100,6 @@ export const useUserStore = defineStore({
   },
 });
 
-// Need to be used outside the setup
 export function useUser() {
   return useUserStore(pinia);
 }

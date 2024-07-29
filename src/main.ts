@@ -4,7 +4,7 @@ import { createApp } from 'vue'
 import './style.css'
 import { setupNaiveDiscreteApi, setupNaive, setupDirectives } from '@/plugins';
 import App from './App.vue';
-import router from './router';
+import router, { setupRouter } from './router';
 import { pinia } from '@/store';
 console.log(pinia);
 
@@ -14,7 +14,9 @@ console.log(pinia);
   setupNaive(app);
 
   app.use(pinia)
-  app.use(router);
+
+  // 路由加载
+  setupRouter(router)
   
   app.mount('#app')
 })()

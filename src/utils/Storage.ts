@@ -7,13 +7,23 @@ const DEFAULT_CACHE_TIME = 60 * 60 * 24 * 7;
  * @param {Object} [storage=localStorage] - sessionStorage | localStorage
  */
 
+// 单例模式
 export default class Storage {
   private storage: globalThis.Storage;
   private prefixKey?: string;
 
-  constructor(prefixKey = '', storage = localStorage) {
+  private constructor(prefixKey = '', storage = localStorage) {
     this.storage = storage;
     this.prefixKey = prefixKey;
+  }
+  private static _storage;
+
+  static createStorage(prefixKey = '', storage = localStorage): Board {
+    if(this._storage) {
+      return this._storage;
+    }
+    this._storage = new Board(prefixKey, storage)
+    return this._storage
   }
 
   private getKey(key: string) {
@@ -121,4 +131,5 @@ export default class Storage {
   }
 }
 
-export const storage = new Storage('');
+// export const storage = new Storage('');
+export const storage = Storage.createStorage('');

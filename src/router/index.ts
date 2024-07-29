@@ -1,8 +1,10 @@
 
+import { App } from 'vue';
+
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 // import { RedirectRoute } from '@/router/base';
 // import { PageEnum } from '@/enums/pageEnum';
-// import { createRouterGuards } from './guards';
+import { createRouterGuards } from './guards';
 // import type { IModuleType } from './types';
 
 // const modules = import.meta.glob<IModuleType>('./modules/**/*.ts', { eager: true });
@@ -50,10 +52,11 @@ const router = createRouter({
   // scrollBehavior: () => ({ left: 0, top: 0 }),
 });
 
-// export function setupRouter(app: App) {
-//   app.use(router);
-//   // 创建路由守卫
-//   createRouterGuards(router);
-// }
+
+export function setupRouter(app: App) {
+  app.use(router);
+  // 创建路由守卫
+  createRouterGuards(router);
+}
 
 export default router;
