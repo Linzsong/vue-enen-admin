@@ -44,7 +44,7 @@ export const LoginRoute: RouteRecordRaw = {
 
 // //普通路由 无需验证权限
 // export const constantRouter: RouteRecordRaw[] = [LoginRoute, RootRoute, RedirectRoute];
-const constantRouter = [LoginRoute]
+export const constantRouter = [LoginRoute]
 const router = createRouter({
   history: createWebHistory(),
   routes: constantRouter,

@@ -18,11 +18,11 @@ export default class Storage {
   }
   private static _storage;
 
-  static createStorage(prefixKey = '', storage = localStorage): Board {
+  static createStorage(prefixKey = '', storage = localStorage): Storage {
     if(this._storage) {
       return this._storage;
     }
-    this._storage = new Board(prefixKey, storage)
+    this._storage = new Storage(prefixKey, storage)
     return this._storage
   }
 

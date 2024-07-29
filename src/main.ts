@@ -16,7 +16,11 @@ console.log(pinia);
   app.use(pinia)
 
   // 路由加载
-  setupRouter(router)
+  setupRouter(app)
+  
+  // 路由准备就绪后挂载 APP 实例
+  // https://router.vuejs.org/api/interfaces/router.html#isready
+  await router.isReady();
   
   app.mount('#app')
 })()

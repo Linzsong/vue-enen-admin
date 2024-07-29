@@ -13,7 +13,10 @@ const whitePathList = [LOGIN_PATH]; // no redirect whitelist
 
 export const createRouterGuards = (router: Router) => {
   const userStore = useUser();
+  console.log(userStore);
+  
   const asyncRouteStore = useAsyncRoute();
+  console.log(asyncRouteStore);
 
   router.beforeEach(async (to, from, next) => {
     window["$loading"] && Loading.start(); // 进度条
