@@ -1,7 +1,7 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
 import { resolve } from 'path';
-import eslintPlugin from 'vite-plugin-eslint'
+import eslintPlugin from 'vite-plugin-eslint';
 
 // https://vitejs.dev/config/
 
@@ -13,8 +13,8 @@ export default defineConfig({
     alias: [
       {
         find: '@',
-        replacement: resolve(process.cwd(), '.', 'src') + '/',
-      },
+        replacement: resolve(process.cwd(), '.', 'src') + '/'
+      }
     ],
     // alias: {
     //   '@': './src'
@@ -22,7 +22,7 @@ export default defineConfig({
     // alias: {
     //   '@': path.resolve(__dirname, 'src'),
     // },
-    dedupe: ['vue'],
+    dedupe: ['vue']
   },
   plugins: [
     vue(),
@@ -30,7 +30,7 @@ export default defineConfig({
       // 是否在浏览器控制台显示ESLint错误
       include: ['src/**/*.{js,ts,jsx,tsx,vue}'], // 指定要检查的文件模式
       exclude: ['node_modules', 'dist'], // 排除不需要检查的文件夹
-      cache: false, // 禁用缓存
-    }),
-  ],
-})
+      cache: false // 禁用缓存
+    })
+  ]
+});

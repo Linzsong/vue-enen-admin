@@ -23,7 +23,7 @@ export function configHtmlPlugin(env: ViteEnv, isBuild: boolean) {
     inject: {
       // Inject data into ejs template
       data: {
-        title: VITE_GLOB_APP_TITLE,
+        title: VITE_GLOB_APP_TITLE
       },
       // Embed the generated app.config.js file
       tags: isBuild
@@ -31,12 +31,12 @@ export function configHtmlPlugin(env: ViteEnv, isBuild: boolean) {
             {
               tag: 'script',
               attrs: {
-                src: getAppConfigSrc(),
-              },
-            },
+                src: getAppConfigSrc()
+              }
+            }
           ]
-        : [],
-    },
+        : []
+    }
   });
   return htmlPlugin;
 }

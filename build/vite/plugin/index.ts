@@ -1,4 +1,4 @@
-import type { Plugin,PluginOption } from 'vite';
+import type { Plugin, PluginOption } from 'vite';
 import Components from 'unplugin-vue-components/vite';
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers';
 
@@ -21,8 +21,8 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean, prodMock) 
     // 按需引入NaiveUi且自动创建组件声明
     Components({
       dts: true,
-      resolvers: [NaiveUiResolver()],
-    }),
+      resolvers: [NaiveUiResolver()]
+    })
   ];
 
   // vite-plugin-html

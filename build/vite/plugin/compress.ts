@@ -18,7 +18,7 @@ export function configCompressPlugin(
     plugins.push(
       compressPlugin({
         ext: '.gz',
-        deleteOriginFile,
+        deleteOriginFile
       })
     );
   }
@@ -27,7 +27,7 @@ export function configCompressPlugin(
       compressPlugin({
         ext: '.br',
         algorithm: 'brotliCompress',
-        deleteOriginFile,
+        deleteOriginFile
       })
     );
   }

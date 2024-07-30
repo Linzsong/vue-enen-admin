@@ -14,7 +14,7 @@ function createConfig(
   {
     configName,
     config,
-    configFileName = GLOB_CONFIG_FILE_NAME,
+    configFileName = GLOB_CONFIG_FILE_NAME
   }: { configName: string; config: any; configFileName?: string } = { configName: '', config: {} }
 ) {
   try {
