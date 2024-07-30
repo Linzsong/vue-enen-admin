@@ -37,6 +37,6 @@ export function useProjectSetting() {
     permissionMode,
     showFooter,
     isPageAnimate,
-    pageAnimateType,
+    pageAnimateType
   };
 }

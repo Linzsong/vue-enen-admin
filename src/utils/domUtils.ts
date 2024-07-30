@@ -114,7 +114,7 @@ export function getViewportOffset(element: Element): ViewportOffsetResult {
     right: clientWidth - rectWidth - left,
     bottom: clientHeight - rectHeight - top,
     rightIncludeBody: clientWidth - left,
-    bottomIncludeBody: clientHeight - top,
+    bottomIncludeBody: clientHeight - top
   };
 }
 
@@ -122,12 +122,12 @@ export function hackCss(attr: string, value: string) {
   const prefix: string[] = ['webkit', 'Moz', 'ms', 'OT'];
 
   const styleObj: any = {};
-  prefix.forEach((item) => {
+  prefix.forEach(item => {
     styleObj[`${item}${upperFirst(attr)}`] = value;
   });
   return {
     ...styleObj,
-    [attr]: value,
+    [attr]: value
   };
 }
 

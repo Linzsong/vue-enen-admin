@@ -1,10 +1,10 @@
-import { toRaw, unref } from "vue";
-import { defineStore } from "pinia";
-import { RouteRecordRaw } from "vue-router";
-import { pinia } from "@/store";
-import { asyncRoutes, constantRouter } from "@/router/index";
-import { generateDynamicRoutes } from "@/router/generator";
-import { useProjectSetting } from "@/hooks/setting/useProjectSetting";
+import { toRaw, unref } from 'vue';
+import { defineStore } from 'pinia';
+import { RouteRecordRaw } from 'vue-router';
+import { pinia } from '@/store';
+import { asyncRoutes, constantRouter } from '@/router/index';
+import { generateDynamicRoutes } from '@/router/generator';
+import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 
 interface TreeHelperConfig {
   id: string;
@@ -13,13 +13,12 @@ interface TreeHelperConfig {
 }
 
 const DEFAULT_CONFIG: TreeHelperConfig = {
-  id: "id",
-  children: "children",
-  pid: "pid",
+  id: 'id',
+  children: 'children',
+  pid: 'pid'
 };
 
-const getConfig = (config: Partial<TreeHelperConfig>) =>
-  Object.assign({}, DEFAULT_CONFIG, config);
+const getConfig = (config: Partial<TreeHelperConfig>) => Object.assign({}, DEFAULT_CONFIG, config);
 
 export interface IAsyncRouteState {
   menus: RouteRecordRaw[];
@@ -40,7 +39,7 @@ function filter<T = any>(
   function listFilter(list: T[]) {
     return list
       .map((node: any) => ({ ...node }))
-      .filter((node) => {
+      .filter(node => {
         node[children] = node[children] && listFilter(node[children]);
         return func(node) || (node[children] && node[children].length);
       });
@@ -50,17 +49,17 @@ function filter<T = any>(
 }
 
 export const useAsyncRouteStore = defineStore({
-  id: "app-async-route",
+  id: 'app-async-route',
   state: (): IAsyncRouteState => ({
     menus: [],
     routers: constantRouter,
     routersAdded: [],
     keepAliveComponents: [],
     // Whether the route has been dynamically added
-    isDynamicRouteAdded: false,
+    isDynamicRouteAdded: false
   }),
   getters: {},
-  actions: {},
+  actions: {}
 });
 
 export function useAsyncRoute() {

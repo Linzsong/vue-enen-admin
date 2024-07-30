@@ -10,7 +10,7 @@ const params = {
   top: 0,
   currentX: 0,
   currentY: 0,
-  flag: false,
+  flag: false
 };
 
 const startDrag = function (bar, target, callback?) {

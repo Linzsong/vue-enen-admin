@@ -4,7 +4,7 @@ import type {
   VNodeChild,
   ComponentPublicInstance,
   FunctionalComponent,
-  PropType as VuePropType,
+  PropType as VuePropType
 } from 'vue';
 
 declare global {

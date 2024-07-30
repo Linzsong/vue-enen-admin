@@ -16,7 +16,7 @@ export const ErrorPageRoute: RouteRecordRaw = {
   component: Layout,
   meta: {
     title: 'ErrorPage',
-    hideBreadcrumb: true,
+    hideBreadcrumb: true
   },
   children: [
     {
@@ -25,10 +25,10 @@ export const ErrorPageRoute: RouteRecordRaw = {
       component: ErrorPage,
       meta: {
         title: 'ErrorPage',
-        hideBreadcrumb: true,
-      },
-    },
-  ],
+        hideBreadcrumb: true
+      }
+    }
+  ]
 };
 
 export const RedirectRoute: RouteRecordRaw = {
@@ -37,7 +37,7 @@ export const RedirectRoute: RouteRecordRaw = {
   component: Layout,
   meta: {
     title: RedirectName,
-    hideBreadcrumb: true,
+    hideBreadcrumb: true
   },
   children: [
     {
@@ -46,8 +46,8 @@ export const RedirectRoute: RouteRecordRaw = {
       component: () => import('@/frame/redirect/index.vue'),
       meta: {
         title: RedirectName,
-        hideBreadcrumb: true,
-      },
-    },
-  ],
+        hideBreadcrumb: true
+      }
+    }
+  ]
 };

@@ -120,10 +120,10 @@ export class VAxios {
     }
 
     if (params.data) {
-      Object.keys(params.data).forEach((key) => {
+      Object.keys(params.data).forEach(key => {
         const value = params.data![key];
         if (Array.isArray(value)) {
-          value.forEach((item) => {
+          value.forEach(item => {
             formData.append(`${key}[]`, item);
           });
           return;
@@ -138,9 +138,9 @@ export class VAxios {
       data: formData,
       headers: {
         'Content-type': ContentTypeEnum.FORM_DATA,
-        ignoreCancelToken: true,
+        ignoreCancelToken: true
       },
-      ...config,
+      ...config
     });
   }
 
@@ -156,7 +156,7 @@ export class VAxios {
       requestInterceptors,
       requestInterceptorsCatch,
       responseInterceptors,
-      responseInterceptorsCatch,
+      responseInterceptorsCatch
     } = transform;
 
     const axiosCanceler = new AxiosCanceler();
@@ -164,7 +164,7 @@ export class VAxios {
     // 请求拦截器配置处理
     this.axiosInstance.interceptors.request.use((config: AxiosRequestConfig) => {
       const {
-        headers: { ignoreCancelToken },
+        headers: { ignoreCancelToken }
       } = config;
       const ignoreCancel =
         ignoreCancelToken !== undefined

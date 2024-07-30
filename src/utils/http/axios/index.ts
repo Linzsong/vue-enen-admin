@@ -38,7 +38,7 @@ const transform: AxiosTransform = {
       successMessageText,
       errorMessageText,
       isTransformResponse,
-      isReturnNativeResponse,
+      isReturnNativeResponse
     } = options;
 
     // 是否返回原生响应头 比如：需要获取响应头时使用该属性
@@ -70,7 +70,7 @@ const transform: AxiosTransform = {
         // 是否显示自定义信息提示
         $dialog.success({
           type: 'success',
-          content: successMessageText || message || '操作成功！',
+          content: successMessageText || message || '操作成功！'
         });
       } else if (!hasSuccess && (errorMessageText || isShowErrorMessage)) {
         // 是否显示自定义信息提示
@@ -81,7 +81,7 @@ const transform: AxiosTransform = {
           title: '提示',
           content: message,
           positiveText: '确定',
-          onPositiveClick: () => {},
+          onPositiveClick: () => {}
         });
       }
     }
@@ -115,7 +115,7 @@ const transform: AxiosTransform = {
             storage.clear();
             window.location.href = LoginPath;
           },
-          onNegativeClick: () => {},
+          onNegativeClick: () => {}
         });
         break;
     }
@@ -212,7 +212,7 @@ const transform: AxiosTransform = {
           closable: false,
           maskClosable: false,
           onPositiveClick: () => {},
-          onNegativeClick: () => {},
+          onNegativeClick: () => {}
         });
         return Promise.reject(error);
       }
@@ -228,7 +228,7 @@ const transform: AxiosTransform = {
     }
     //return Promise.reject(error);
     return Promise.reject(response?.data);
-  },
+  }
 };
 
 function createAxios(opt?: Partial<CreateAxiosOptions>) {
@@ -265,9 +265,9 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
           // 忽略重复请求
           ignoreCancelToken: true,
           // 是否携带token
-          withToken: true,
+          withToken: true
         },
-        withCredentials: false,
+        withCredentials: false
       },
       opt || {}
     )

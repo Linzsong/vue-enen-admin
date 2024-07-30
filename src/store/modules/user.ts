@@ -29,7 +29,7 @@ export const useUserStore = defineStore({
     welcome: '',
     avatar: '',
     permissions: [],
-    info: storage.get(CURRENT_USER, {}),
+    info: storage.get(CURRENT_USER, {})
   }),
   getters: {
     getToken(): string {
@@ -46,7 +46,7 @@ export const useUserStore = defineStore({
     },
     getUserInfo(): UserInfoType {
       return this.info;
-    },
+    }
   },
   actions: {
     setToken(token: string) {
@@ -96,8 +96,8 @@ export const useUserStore = defineStore({
       this.setUserInfo({ name: '', email: '' });
       storage.remove(ACCESS_TOKEN);
       storage.remove(CURRENT_USER);
-    },
-  },
+    }
+  }
 });
 
 export function useUser() {

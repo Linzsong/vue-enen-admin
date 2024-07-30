@@ -14,14 +14,14 @@ const whitePathList = [LOGIN_PATH]; // no redirect whitelist
 export const createRouterGuards = (router: Router) => {
   const userStore = useUser();
   console.log(userStore);
-  
+
   const asyncRouteStore = useAsyncRoute();
   console.log(asyncRouteStore);
 
   router.beforeEach(async (to, from, next) => {
-    window["$loading"] && Loading.start(); // 进度条
+    window['$loading'] && Loading.start(); // 进度条
 
-    if (from.path === LOGIN_PATH && to.name === "errorPage") {
+    if (from.path === LOGIN_PATH && to.name === 'errorPage') {
       // 从白名单来，去 错误页面，跳转到首页
       next(PageEnum.BASE_HOME);
       return;
@@ -47,12 +47,12 @@ export const createRouterGuards = (router: Router) => {
         query?: Recordable<string>;
       } = {
         path: LOGIN_PATH,
-        replace: true,
+        replace: true
       };
       if (to.path) {
         redirectData.query = {
           ...redirectData.query,
-          redirect: to.path,
+          redirect: to.path
         };
       }
       next(redirectData);
@@ -69,10 +69,10 @@ export const createRouterGuards = (router: Router) => {
     const routes = await asyncRouteStore.generateRoutes(userInfo);
 
     // 动态添加可访问路由表
-    routes.forEach((item) => {
+    routes.forEach(item => {
       router.addRoute(item as unknown as RouteRecordRaw);
-    });//添加404
-    const isErrorPage = router.getRoutes().findIndex((item) => item.name === ErrorPageRoute.name);
+    }); //添加404
+    const isErrorPage = router.getRoutes().findIndex(item => item.name === ErrorPageRoute.name);
     if (isErrorPage === -1) {
       router.addRoute(ErrorPageRoute as unknown as RouteRecordRaw);
     }
@@ -83,13 +83,11 @@ export const createRouterGuards = (router: Router) => {
     asyncRouteStore.setDynamicRouteAdded(true);
     next(nextData);
     Loading && Loading.finish();
-
   });
 
-  router.afterEach((to, _, failure) => {
-  })
+  router.afterEach((to, _, failure) => {});
 
-  router.onError((error) => {
+  router.onError(error => {
     console.log(error, '路由错误');
   });
 };

@@ -19,11 +19,11 @@ export default class Storage {
   private static _storage;
 
   static createStorage(prefixKey = '', storage = localStorage): Storage {
-    if(this._storage) {
+    if (this._storage) {
       return this._storage;
     }
-    this._storage = new Storage(prefixKey, storage)
-    return this._storage
+    this._storage = new Storage(prefixKey, storage);
+    return this._storage;
   }
 
   private getKey(key: string) {
@@ -39,7 +39,7 @@ export default class Storage {
   set(key: string, value: any, expire: number | null = DEFAULT_CACHE_TIME) {
     const stringData = JSON.stringify({
       value,
-      expire: expire !== null ? new Date().getTime() + expire * 1000 : null,
+      expire: expire !== null ? new Date().getTime() + expire * 1000 : null
     });
     this.storage.setItem(this.getKey(key), stringData);
   }

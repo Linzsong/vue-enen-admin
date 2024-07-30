@@ -18,7 +18,7 @@ export const useDesignSettingStore = defineStore({
   state: (): DesignSettingState => ({
     darkTheme,
     appTheme,
-    appThemeList,
+    appThemeList
   }),
   getters: {
     getDarkTheme(): boolean {
@@ -29,9 +29,9 @@ export const useDesignSettingStore = defineStore({
     },
     getAppThemeList(): string[] {
       return this.appThemeList;
-    },
+    }
   },
-  actions: {},
+  actions: {}
 });
 
 // Need to be used outside the setup

@@ -35,7 +35,7 @@ export function useECharts(
     }
     return {
       backgroundColor: 'transparent',
-      ...cacheOptions.value,
+      ...cacheOptions.value
     };
   });
 
@@ -49,7 +49,7 @@ export function useECharts(
     const { removeEvent } = useEventListener({
       el: window,
       name: 'resize',
-      listener: resizeFn,
+      listener: resizeFn
     });
     removeResizeFn = removeEvent;
     const { widthRef, screenEnum } = useBreakpoint();
@@ -88,7 +88,7 @@ export function useECharts(
 
   watch(
     () => getDarkTheme.value,
-    (theme) => {
+    theme => {
       if (chartInstance) {
         chartInstance.dispose();
         initCharts(theme as 'default');
@@ -118,6 +118,6 @@ export function useECharts(
     resize,
     echarts,
     getInstance,
-    disposeInstance,
+    disposeInstance
   };
 }

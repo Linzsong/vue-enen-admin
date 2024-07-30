@@ -18,7 +18,7 @@ export interface BasicPageParams {
 export function getUserInfo() {
   return http.request({
     url: '/admin_info',
-    method: 'get',
+    method: 'get'
   });
 }
 
@@ -30,10 +30,10 @@ export function login(params) {
     {
       url: '/login',
       method: 'POST',
-      params,
+      params
     },
     {
-      isTransformResponse: false,
+      isTransformResponse: false
     }
   );
 }
@@ -46,10 +46,10 @@ export function changePassword(params, uid) {
     {
       url: `/user/u${uid}/changepw`,
       method: 'POST',
-      params,
+      params
     },
     {
-      isTransformResponse: false,
+      isTransformResponse: false
     }
   );
 }
@@ -61,6 +61,6 @@ export function logout(params) {
   return http.request({
     url: '/login/logout',
     method: 'POST',
-    params,
+    params
   });
 }

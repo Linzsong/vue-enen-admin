@@ -14,12 +14,12 @@ export const useBattery = () => {
       charging: false,
       chargingTime: 0,
       dischargingTime: 0,
-      level: 100,
-    },
+      level: 100
+    }
   });
 
   // 更新电池使用状态
-  const updateBattery = (target) => {
+  const updateBattery = target => {
     for (const key in state.battery) {
       state.battery[key] = target[key];
     }
@@ -88,6 +88,6 @@ export const useBattery = () => {
     ...toRefs(state),
     batteryStatus,
     calcDischargingTime,
-    calcChargingTime,
+    calcChargingTime
   };
 };

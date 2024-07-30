@@ -1,4 +1,3 @@
-
 import { App } from 'vue';
 
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
@@ -35,8 +34,8 @@ export const LoginRoute: RouteRecordRaw = {
   name: 'Login',
   component: () => import('@/pages/login/index.vue'),
   meta: {
-    title: '登录',
-  },
+    title: '登录'
+  }
 };
 
 // //需要验证权限
@@ -44,14 +43,13 @@ export const LoginRoute: RouteRecordRaw = {
 
 // //普通路由 无需验证权限
 // export const constantRouter: RouteRecordRaw[] = [LoginRoute, RootRoute, RedirectRoute];
-export const constantRouter = [LoginRoute]
+export const constantRouter = [LoginRoute];
 const router = createRouter({
   history: createWebHistory(),
   routes: constantRouter,
-  strict: true,
+  strict: true
   // scrollBehavior: () => ({ left: 0, top: 0 }),
 });
-
 
 export function setupRouter(app: App) {
   app.use(router);

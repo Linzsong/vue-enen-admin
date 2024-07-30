@@ -10,5 +10,5 @@ export enum PageEnum {
   //首页跳转默认路由
   BASE_HOME_REDIRECT = '/dashboard/console',
   // 错误
-  ERROR_PAGE_NAME = 'ErrorPage',
+  ERROR_PAGE_NAME = 'ErrorPage'
 }

@@ -6,6 +6,6 @@ import { http } from '@/utils/http/axios';
 export function getRoleList() {
   return http.request({
     url: '/role/list',
-    method: 'GET',
+    method: 'GET'
   });
 }

@@ -13,6 +13,6 @@ export function useDesignSetting() {
   return {
     getDarkTheme,
     getAppTheme,
-    getAppThemeList,
+    getAppThemeList
   };
 }

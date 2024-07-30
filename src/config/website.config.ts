@@ -5,5 +5,5 @@ export const websiteConfig = Object.freeze({
   title: 'Vue-Enen-Admin',
   logo: logoImage,
   loginImage: logoImage,
-  loginDesc: 'Vue Enen Admin中后台前端/设计解决方案',
+  loginDesc: 'Vue Enen Admin中后台前端/设计解决方案'
 });

@@ -17,7 +17,7 @@ function getFileName(url) {
 export function downloadByUrl({
   url,
   target = '_blank',
-  fileName,
+  fileName
 }: {
   url: string;
   target?: '_self' | '_blank';
@@ -60,7 +60,7 @@ export function downloadByUrl({
         context.drawImage(img, 0, 0, img.width, img.height);
         // window.navigator.msSaveBlob(canvas.msToBlob(),'image.jpg');
         // saveAs(imageDataUrl, '附件');
-        canvas.toBlob((blob) => {
+        canvas.toBlob(blob => {
           const link = document.createElement('a');
           link.href = window.URL.createObjectURL(blob);
           link.download = getFileName(url);
@@ -69,7 +69,7 @@ export function downloadByUrl({
           resolve(true);
         }, 'image/jpeg');
       };
-      img.onerror = (e) => reject(e);
+      img.onerror = e => reject(e);
     }
   });
 }

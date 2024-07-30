@@ -11,14 +11,14 @@
  * @param app
  */
 export function setupDirectives(app: App) {
-//   // 权限控制指令（演示）
-//   app.directive('permission', permission);
-//   // 复制指令
-//   app.directive('copy', copy);
-//   // 防抖指令
-//   app.directive('debounce', debounce);
-//   // 节流指令
-//   app.directive('throttle', throttle);
-//   // 拖拽指令
-//   app.directive('draggable', draggable);
+  //   // 权限控制指令（演示）
+  //   app.directive('permission', permission);
+  //   // 复制指令
+  //   app.directive('copy', copy);
+  //   // 防抖指令
+  //   app.directive('debounce', debounce);
+  //   // 节流指令
+  //   app.directive('throttle', throttle);
+  //   // 拖拽指令
+  //   app.directive('draggable', draggable);
 }
