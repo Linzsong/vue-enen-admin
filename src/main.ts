@@ -11,9 +11,15 @@ console.log(pinia);
 (async () => {
   const app = createApp(App);
 
-  setupNaive(app);
-
+  // 挂载状态管理
   app.use(pinia);
+
+  setupNaive(app);
+  // 挂载 naive-ui 脱离上下文的 Api
+  setupNaiveDiscreteApi();
+
+  // 注册全局自定义指令，如：v-permission权限指令
+  setupDirectives(app);
 
   // 路由加载
   setupRouter(app);
