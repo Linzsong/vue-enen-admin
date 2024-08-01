@@ -17,10 +17,14 @@ declare global {
     };
     lastBuildTime: string;
   };
-  // declare interface Window {
-  //   // Global vue app instance
-  //   __APP__: App<Element>;
-  // }
+  declare interface Window {
+    $message: unknown;
+    $dialog: unknown;
+    $notification: unknown;
+    $loading: unknown;
+    //   // Global vue app instance
+    //   __APP__: App<Element>;
+  }
 
   // vue
   declare type PropType<T> = VuePropType<T>;

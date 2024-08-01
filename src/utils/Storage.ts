@@ -16,7 +16,7 @@ export default class Storage {
     this.storage = storage;
     this.prefixKey = prefixKey;
   }
-  private static _storage;
+  private static _storage: Storage;
 
   static createStorage(prefixKey = '', storage = localStorage): Storage {
     if (this._storage) {
@@ -36,7 +36,7 @@ export default class Storage {
    * @param {*} value 缓存值
    * @param expire
    */
-  set(key: string, value: any, expire: number | null = DEFAULT_CACHE_TIME) {
+  set(key: string, value: unknown, expire: number | null = DEFAULT_CACHE_TIME) {
     const stringData = JSON.stringify({
       value,
       expire: expire !== null ? new Date().getTime() + expire * 1000 : null
@@ -49,7 +49,7 @@ export default class Storage {
    * @param {string} key 缓存键
    * @param {*=} def 默认值
    */
-  get(key: string, def: any = null) {
+  get(key: string, def: unknown = null) {
     const item = this.storage.getItem(this.getKey(key));
     if (item) {
       try {
@@ -91,7 +91,7 @@ export default class Storage {
    * 如果过期时间未设置，默认关闭浏览器自动删除
    * @example
    */
-  setCookie(name: string, value: any, expire: number | null = DEFAULT_CACHE_TIME) {
+  setCookie(name: string, value: unknown, expire: number | null = DEFAULT_CACHE_TIME) {
     document.cookie = `${this.getKey(name)}=${value}; Max-Age=${expire}`;
   }
 

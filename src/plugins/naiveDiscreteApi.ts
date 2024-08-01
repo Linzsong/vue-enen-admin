@@ -1,7 +1,7 @@
 import * as NaiveUI from 'naive-ui';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 // import { useDesignSetting } from "@/store/modules/designSetting";
-import { lighten } from '@/utils/index';
+// import { lighten } from '@/utils/index';
 
 // import { createDiscreteApi, darkTheme, lightTheme } from 'naive-ui'
 
@@ -12,7 +12,7 @@ import { lighten } from '@/utils/index';
  */
 
 export function setupNaiveDiscreteApi() {
-  const designStore = useDesignSetting();
+  // const designStore = useDesignSetting();
 
   // const configProviderPropsRef = computed(() => ({
   //   theme: designStore.darkTheme ? NaiveUI.darkTheme : undefined,
@@ -29,7 +29,7 @@ export function setupNaiveDiscreteApi() {
   // }));
 
   const themeRef = ref<'light' | 'dark'>('light');
-  const configProviderPropsRef = computed<ConfigProviderProps>(() => ({
+  const configProviderPropsRef = computed<NaiveUI.ConfigProviderProps>(() => ({
     theme: themeRef.value === 'light' ? NaiveUI.lightTheme : NaiveUI.darkTheme
   }));
   const { message, dialog, notification, loadingBar } = NaiveUI.createDiscreteApi(
