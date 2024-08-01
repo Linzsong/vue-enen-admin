@@ -19,7 +19,7 @@ export const createRouterGuards = (router: Router) => {
   console.log(asyncRouteStore);
 
   router.beforeEach(async (to, from, next) => {
-    window['$loading'] && Loading.start(); // 进度条
+    window['$loading'] && window['$loading'].start(); // 进度条
 
     if (from.path === LOGIN_PATH && to.name === 'errorPage') {
       // 从白名单来，去 错误页面，跳转到首页
@@ -85,7 +85,29 @@ export const createRouterGuards = (router: Router) => {
     Loading && Loading.finish();
   });
 
-  router.afterEach((to, _, failure) => {});
+  router.afterEach((to, _, failure) => {
+    document.title = (to?.meta?.title as string) || document.title;
+    if (isNavigationFailure(failure)) {
+      //console.log('failed navigation', failure)
+    }
+    const asyncRouteStore = useAsyncRoute();
+    // 在这里设置需要缓存的组件名称
+    const keepAliveComponents = asyncRouteStore.keepAliveComponents;
+    const currentComName: any = to.matched.find((item) => item.name == to.name)?.name;
+    if (currentComName && !keepAliveComponents.includes(currentComName) && to.meta?.keepAlive) {
+      // 需要缓存的组件
+      keepAliveComponents.push(currentComName);
+    } else if (!to.meta?.keepAlive || to.name == 'Redirect') {
+      // 不需要缓存的组件
+      const index = asyncRouteStore.keepAliveComponents.findIndex((name) => name == currentComName);
+      if (index != -1) {
+        keepAliveComponents.splice(index, 1);
+      }
+    }
+    asyncRouteStore.setKeepAliveComponents(keepAliveComponents);
+    const Loading = window['$loading'] || null;
+    Loading && Loading.finish();
+  });
 
   router.onError(error => {
     console.log(error, '路由错误');

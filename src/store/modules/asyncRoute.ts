@@ -15,7 +15,7 @@ interface TreeHelperConfig {
 const DEFAULT_CONFIG: TreeHelperConfig = {
   id: 'id',
   children: 'children',
-  pid: 'pid'
+  pid: 'pid',
 };
 
 const getConfig = (config: Partial<TreeHelperConfig>) => Object.assign({}, DEFAULT_CONFIG, config);
@@ -39,7 +39,7 @@ function filter<T = any>(
   function listFilter(list: T[]) {
     return list
       .map((node: any) => ({ ...node }))
-      .filter(node => {
+      .filter((node) => {
         node[children] = node[children] && listFilter(node[children]);
         return func(node) || (node[children] && node[children].length);
       });
@@ -56,12 +56,70 @@ export const useAsyncRouteStore = defineStore({
     routersAdded: [],
     keepAliveComponents: [],
     // Whether the route has been dynamically added
-    isDynamicRouteAdded: false
+    isDynamicRouteAdded: false,
   }),
-  getters: {},
-  actions: {}
+  getters: {
+    getMenus(): RouteRecordRaw[] {
+      return this.menus;
+    },
+    getIsDynamicRouteAdded(): boolean {
+      return this.isDynamicRouteAdded;
+    },
+  },
+  actions: {
+    getRouters() {
+      return toRaw(this.routersAdded);
+    },
+    setDynamicRouteAdded(added: boolean) {
+      this.isDynamicRouteAdded = added;
+    },
+    // 设置动态路由
+    setRouters(routers: RouteRecordRaw[]) {
+      this.routersAdded = routers;
+      this.routers = constantRouter.concat(routers);
+    },
+    setMenus(menus: RouteRecordRaw[]) {
+      // 设置动态路由
+      this.menus = menus;
+    },
+    setKeepAliveComponents(compNames: string[]) {
+      // 设置需要缓存的组件
+      this.keepAliveComponents = compNames;
+    },
+    async generateRoutes(data) {
+      let accessedRouters;
+      const permissionsList = data.permissions ?? [];
+      const routeFilter = (route) => {
+        const { meta } = route;
+        const { permissions } = meta || {};
+        if (!permissions) return true;
+        return permissionsList.some((item) => permissions.includes(item.value));
+      };
+      const { permissionMode } = useProjectSetting();
+      if (unref(permissionMode) === 'BACK') {
+        // 动态获取菜单
+        try {
+          accessedRouters = await generateDynamicRoutes();
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        try {
+          //过滤账户是否拥有某一个权限，并将菜单从加载列表移除
+          accessedRouters = filter(asyncRoutes, routeFilter);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      accessedRouters = accessedRouters.filter(routeFilter);
+      this.setRouters(accessedRouters);
+      this.setMenus(accessedRouters);
+      return toRaw(accessedRouters);
+    },
+  },
 });
 
+// Need to be used outside the setup
 export function useAsyncRoute() {
   return useAsyncRouteStore(pinia);
 }

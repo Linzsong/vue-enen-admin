@@ -32,11 +32,11 @@ declare global {
 
   declare type Nullable<T> = T | null;
   declare type NonNullable<T> = T extends null | undefined ? never : T;
-  declare type Recordable<T = any> = Record<string, T>;
-  declare type ReadonlyRecordable<T = any> = {
+  declare type Recordable<T = unknown> = Record<string, T>;
+  declare type ReadonlyRecordable<T = unknown> = {
     readonly [key: string]: T;
   };
-  declare type Indexable<T = any> = {
+  declare type Indexable<T = unknown> = {
     [key: string]: T;
   };
   declare type DeepPartial<T> = {
@@ -82,21 +82,21 @@ declare global {
     type ElementClass = ComponentRenderProxy;
 
     interface ElementAttributesProperty {
-      $props: any;
+      $props: unknown;
     }
 
     interface IntrinsicElements {
-      [elem: string]: any;
+      [elem: string]: unknown;
     }
 
     interface IntrinsicAttributes {
-      [elem: string]: any;
+      [elem: string]: unknown;
     }
   }
 }
 
 declare module 'vue' {
-  export type JSXComponent<Props = any> =
+  export type JSXComponent<Props = unknown> =
     | { new (): ComponentPublicInstance<Props> }
     | FunctionalComponent<Props>;
 }
