@@ -121,7 +121,7 @@ export function getViewportOffset(element: Element): ViewportOffsetResult {
 export function hackCss(attr: string, value: string) {
   const prefix: string[] = ['webkit', 'Moz', 'ms', 'OT'];
 
-  const styleObj: any = {};
+  const styleObj: unknown= {};
   prefix.forEach(item => {
     styleObj[`${item}${upperFirst(attr)}`] = value;
   });

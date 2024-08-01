@@ -57,7 +57,7 @@ const startDrag = function (bar, target, callback?) {
     }
   };
   document.onmousemove = function (event) {
-    const e: any = event ? event : window.event;
+    const e: unknown= event ? event : window.event;
     if (params.flag) {
       const nowX = e.clientX,
         nowY = e.clientY;

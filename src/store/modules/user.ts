@@ -17,7 +17,7 @@ export interface IUserState {
   username: string;
   welcome: string;
   avatar: string;
-  permissions: any[];
+  permissions: unknown[];
   info: UserInfoType;
 }
 
@@ -41,7 +41,7 @@ export const useUserStore = defineStore({
     getNickname(): string {
       return this.username;
     },
-    getPermissions(): [any][] {
+    getPermissions(): [unknown][] {
       return this.permissions;
     },
     getUserInfo(): UserInfoType {
@@ -55,14 +55,14 @@ export const useUserStore = defineStore({
     setAvatar(avatar: string) {
       this.avatar = avatar;
     },
-    setPermissions(permissions: any[]) {
+    setPermissions(permissions: unknown[]) {
       this.permissions = permissions;
     },
     setUserInfo(info: UserInfoType) {
       this.info = info;
     },
     // 登录
-    async login(params: any) {
+    async login(params: unknown) {
       const response = await login(params);
       const { result, code } = response;
       if (code === ResultEnum.SUCCESS) {

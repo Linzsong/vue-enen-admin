@@ -17,7 +17,7 @@ export interface UploadFileParams {
   file: File | Blob;
   // 文件名称
   filename?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface RequestOptions {
@@ -57,9 +57,13 @@ export interface RequestOptions {
   withToken?: boolean;
 }
 
-export interface Result<T = any> {
+export interface Result<T = unknown> {
   code: number;
   type?: 'success' | 'error' | 'warning';
   message: string;
   result?: T;
+}
+
+export interface ErrorType {
+  
 }

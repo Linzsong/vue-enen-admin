@@ -1,6 +1,6 @@
 import { http } from '@/utils/http/axios';
 
-export interface BasicResponseModel<T = any> {
+export interface BasicResponseModel<T = unknown> {
   code: number;
   message: string;
   result: T;

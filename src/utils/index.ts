@@ -159,7 +159,7 @@ export const withInstall = <T extends Component>(component: T, alias?: string) =
  *  找到对应的节点
  * */
 let result = null;
-export function getTreeItem(data: any[], key?: string | number): any {
+export function getTreeItem(data: any[], key?: string | number): unknown{
   data.map(item => {
     if (item.key === key) {
       result = item;
@@ -197,7 +197,7 @@ export function getDynamicProps<T extends {}, U>(props: T): Partial<U> {
   return ret as Partial<U>;
 }
 
-export function deepMerge<T = any>(src: any = {}, target: any = {}): T {
+export function deepMerge<T = any>(src: unknown= {}, target: unknown= {}): T {
   let key: string;
   for (key in target) {
     src[key] = isObject(src[key]) ? deepMerge(src[key], target[key]) : (src[key] = target[key]);
