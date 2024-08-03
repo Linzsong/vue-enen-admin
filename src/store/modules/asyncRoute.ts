@@ -15,20 +15,20 @@ interface TreeHelperConfig {
 const DEFAULT_CONFIG: TreeHelperConfig = {
   id: 'id',
   children: 'children',
-  pid: 'pid',
+  pid: 'pid'
 };
 
 const getConfig = (config: Partial<TreeHelperConfig>) => Object.assign({}, DEFAULT_CONFIG, config);
 
 export interface IAsyncRouteState {
   menus: RouteRecordRaw[];
-  routers: any[];
-  routersAdded: any[];
+  routers: unknown[];
+  routersAdded: unknown[];
   keepAliveComponents: string[];
   isDynamicRouteAdded: boolean;
 }
 
-function filter<T = any>(
+function filter<T = unknown>(
   tree: T[],
   func: (n: T) => boolean,
   config: Partial<TreeHelperConfig> = {}
@@ -38,7 +38,7 @@ function filter<T = any>(
 
   function listFilter(list: T[]) {
     return list
-      .map((node: any) => ({ ...node }))
+      .map((node: unknown) => ({ ...node }))
       .filter((node) => {
         node[children] = node[children] && listFilter(node[children]);
         return func(node) || (node[children] && node[children].length);
