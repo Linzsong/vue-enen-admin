@@ -39,7 +39,7 @@ function filter<T = unknown>(
   function listFilter(list: T[]) {
     return list
       .map((node: unknown) => ({ ...node }))
-      .filter((node) => {
+      .filter(node => {
         node[children] = node[children] && listFilter(node[children]);
         return func(node) || (node[children] && node[children].length);
       });
@@ -56,7 +56,7 @@ export const useAsyncRouteStore = defineStore({
     routersAdded: [],
     keepAliveComponents: [],
     // Whether the route has been dynamically added
-    isDynamicRouteAdded: false,
+    isDynamicRouteAdded: false
   }),
   getters: {
     getMenus(): RouteRecordRaw[] {
@@ -64,7 +64,7 @@ export const useAsyncRouteStore = defineStore({
     },
     getIsDynamicRouteAdded(): boolean {
       return this.isDynamicRouteAdded;
-    },
+    }
   },
   actions: {
     getRouters() {
@@ -89,11 +89,11 @@ export const useAsyncRouteStore = defineStore({
     async generateRoutes(data) {
       let accessedRouters;
       const permissionsList = data.permissions ?? [];
-      const routeFilter = (route) => {
+      const routeFilter = route => {
         const { meta } = route;
         const { permissions } = meta || {};
         if (!permissions) return true;
-        return permissionsList.some((item) => permissions.includes(item.value));
+        return permissionsList.some(item => permissions.includes(item.value));
       };
       const { permissionMode } = useProjectSetting();
       if (unref(permissionMode) === 'BACK') {
@@ -115,8 +115,8 @@ export const useAsyncRouteStore = defineStore({
       this.setRouters(accessedRouters);
       this.setMenus(accessedRouters);
       return toRaw(accessedRouters);
-    },
-  },
+    }
+  }
 });
 
 // Need to be used outside the setup
